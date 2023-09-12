@@ -36,9 +36,9 @@ void setup() {
 void loop(){
     unsigned long time = millis();
 
-  // Shift color (change the value accordingly)
+  // Shift colour (change the value accordingly)
   if(time / (double)setTime >= 1) {
-    setTime = time + COLOR_SHIFT;
+    setTime = time + COLOUR_SHIFT;
     Serial.println(setTime);
     shiftC += 200;
     mulC++;
@@ -51,10 +51,10 @@ void loop(){
   }
 
   // Shift all LEDs to the right by updateLEDS
-  for(int i = NUM_LEDS - 1; i >= updateLEDS; i--) {
-    leds[i] = leds[i - updateLEDS];
+  for(int i = NUM_LEDS - 1; i >= updateLED; i--) {
+    leds[i] = leds[i - updateLED];
   }
-  // Get the pitch and brightness to compute the new color
+  // Get the pitch and brightness to compute the next colour
   int newPitch = (analogRead(PITCH_PIN)*2) + shiftC;
   Color nc = pitchConv(newPitch, analogRead(BRIGHT_PIN));
 
