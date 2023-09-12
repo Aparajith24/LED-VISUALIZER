@@ -34,5 +34,33 @@ void setup() {
 }
 
 void loop(){
-    
+    unsigned long time = millis();
+
+  // Shift color (change the value accordingly)
+  if(time / (double)setTime >= 1) {
+    setTime = time + COLOR_SHIFT;
+    Serial.println(setTime);
+    shiftC += 200;
+    mulC++;
+    if(shiftC >= 600) {
+      shiftC = 0;
+    }
+    if(mulC > 3) {
+      mulC = 2;
+    }
+  }
+
+  // Shift all LEDs to the right by updateLEDS
+  for(int i = NUM_LEDS - 1; i >= updateLEDS; i--) {
+    leds[i] = leds[i - updateLEDS];
+  }
+  // Get the pitch and brightness to compute the new color
+  int newPitch = (analogRead(PITCH_PIN)*2) + shiftC;
+  Color nc = pitchConv(newPitch, analogRead(BRIGHT_PIN));
+
+  // Set the left most updateLEDs 
+  for(int i = 0; i < updateLEDS; i++) {
+    leds[i] = CRGB(nc.r, nc.g, nc.b);
+  }
+  FastLED.show();
 }
