@@ -63,4 +63,19 @@ void loop(){
     leds[i] = CRGB(nc.r, nc.g, nc.b);
   }
   FastLED.show();
+  delay(1);
 }
+
+//brightness reading to a percentage (100% = 614) that is 3 volts
+//It will be multipled to the RGB values to get voltage.
+double convBrightness(int b) {
+  double c = b / 614.0000;
+  if( c < 0.2 ) {
+    c = 0;
+  }
+  else if(c > 1) {
+    c = 1.00;
+  }
+  return c;
+}
+
