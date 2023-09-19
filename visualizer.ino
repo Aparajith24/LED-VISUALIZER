@@ -79,3 +79,61 @@ double convBrightness(int b) {
   return c;
 }
 
+//creating new colours from the pitch and brightness
+Color pitchConv(int p, int b) {
+  Color c;
+  double bright = convBrightness(b);
+
+  if(p < 40) {
+    setColour(&c, 255, 0, 0);
+  }
+  else if(p >= 40 && p <= 77) {
+    int b = (p - 40) * (255/37.0000);
+    setColour(&c, 255, 0, b);
+  }
+  else if(p > 77 && p <= 205) {
+    int r = 255 - ((p - 78) * 2);
+    setColour(&c, r, 0, 255);
+  }
+  else if(p >= 206 && p <= 238) {
+    int g = (p - 206) * (255/32.0000);
+    setColour(&c, 0, g, 255);
+  }
+  else if(p <= 239 && p <= 250) {
+    int r = (p - 239) * (255/11.0000);
+    setColour(&c, r, 255, 255);
+  }
+  else if(p >= 251 && p <= 270) {
+    setColour(&c, 255, 255, 255);
+  }
+  else if(p >= 271 && p <= 398) {
+    int rb = 255-((p-271)*2);
+    setColour(&c, rb, 255, rb);
+  }
+  else if(p >= 398 && p <= 653) {
+    setColour(&c, 0, 255-(p-398), (p-398));
+  }
+  else {
+    setColour(&c, 255, 0, 0);
+  }
+  setColour(&c, c.r * bright, c.g * bright, c.b * bright);
+  return c;
+}
+
+void setColour(Color *c, int r, int g, int b) {
+  c->r = r;
+  c->g = g;
+  c->b = b;
+}
+
+// Prints color structure data
+void printColour(Color c) {
+  Serial.print("( ");
+  Serial.print(c.r);
+  Serial.print(", ");
+  Serial.print(c.g);
+  Serial.print(", ");
+  Serial.print(c.b);
+  Serial.println(" )");
+}
+
