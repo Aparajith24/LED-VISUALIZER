@@ -1,18 +1,18 @@
+# Real-Time LED Audio Waveform with Arduino
 
-# Arealtime LED audio waveform based on the pitch and volume with Arduino
+## Project Overview
+Create a real-time LED audio waveform display using an Arduino microcontroller. This project uses a frequency-to-voltage converter, a WS2812B LED strip, and Arduino to visualize audio pitch and volume in the form of vibrant LED patterns. The LED strip functions as a dynamic audio waveform visualizer, providing a captivating and colorful representation of the audio input.
 
 ## Requirements
-- Frequency to voltage converter http://mathscinotes.com/2014/03/a-simple-frequency-to-voltage-converter/
+- [Frequency to voltage converter](http://mathscinotes.com/2014/03/a-simple-frequency-to-voltage-converter/)
 - WS2812B LED strip
-- Arduino
+- Arduino microcontroller
 
-## How it works
+## How It Works
+Every 1 millisecond, the system reads the frequency (pitch) of the audio signal through the frequency-to-voltage converter. Simultaneously, it captures the volume of the amplified audio signal. These two pieces of data are then used to determine the color and brightness of individual LEDs on the WS2812B LED strip.
 
-Every 1 ms, the frequency(pitch) of the audio is read into the arduino, and the volume is read from the amplified audio signal.
-The pitch is then mapped to rgb colors, and the volume represents the brightness. The combination of these values give us unique rgb
-colors for a single LED. Since we have an array of LEDs we can shift all of them to the right before we update the first LED.
-This creates a "memory" effect to display a real time portion of the audio waveform. 
+- **Color Mapping**: The pitch information is mapped to RGB colors, creating a visually appealing color palette. Different pitches correspond to different colors, adding depth and variety to the visual representation.
 
-## Note
-This code assumes you have a frequency to voltage converter, which operates between 1 - 3 volts during regular music frequencies (roughly 
-100 - 600hz).
+- **Brightness Control**: The volume of the audio signal controls the brightness of the LEDs. Louder audio results in brighter LEDs, while quieter sections are displayed with lower intensity.
+
+- **LED Shift and Memory Effect**: The LED strip consists of multiple LEDs arranged sequentially. To create a real-time audio waveform display, all LEDs shift to the right, updating the first LED with the latest audio data. This shifting allows the system to display a portion of the audio waveform in real time.
